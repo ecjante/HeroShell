@@ -6,8 +6,10 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.text.SpannableString;
@@ -30,16 +32,14 @@ import com.enrico.heroshell.Util.Utilities;
 /**
  * Created by enrico on 10/19/17.
  */
-public class UserProfileFragment extends BaseFragment {
+public class UserProfileFragment extends Fragment {
 
     private View mainLayout;
     private User user;
 
     public UserProfileFragment() {
         // Required empty public constructor
-        fragmentName = "userProfileFragment";
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +50,13 @@ public class UserProfileFragment extends BaseFragment {
             setup();
         }
         return mainLayout;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ContainerActivity.updateToolbarTitle("Profile");
+        ContainerActivity.updateDrawerSelection(ContainerActivity.PROFILE_ID);
     }
 
     public void setup() {
@@ -113,6 +120,12 @@ public class UserProfileFragment extends BaseFragment {
         SpannableString followingCount = new SpannableString("FOLLOWING\n" + user.getFollowingCount());
         followingCount.setSpan(new RelativeSizeSpan(1.75f), 10, followingCount.length(), 0);
         leftButton.setText(followingCount);
+        leftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View _) {
+                goToFollowing();
+            }
+        });
 
         TextView centerButton = (TextView) mainLayout.findViewById(R.id.up_center_button);
         SpannableString followersCount = new SpannableString("FOLLOWERS\n" + user.getFollowersCount());
@@ -125,6 +138,14 @@ public class UserProfileFragment extends BaseFragment {
         rightButton.setText(playlistCount);
     }
 
+    /**
+     * Method to go to following fragment when following button clicked
+     */
+    public void goToFollowing() {
+        UserFollowingFragment userFollowingFragment = new UserFollowingFragment();
+        ContainerActivity.pushFragment(userFollowingFragment);
+    }
+
     public User getUser() {
         return user;
     }
@@ -133,14 +154,4 @@ public class UserProfileFragment extends BaseFragment {
         this.user = user;
     }
 
-    @Override
-    public void didAppear() {
-        ContainerActivity.updateToolbarTitle("Profile");
-        ContainerActivity.updateDrawerSelection(ContainerActivity.PROFILE_ID);
-    }
-
-    @Override
-    public void didDisappear() {
-
-    }
 }

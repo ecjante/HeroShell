@@ -2,6 +2,7 @@ package com.enrico.heroshell.Activities;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.enrico.heroshell.Fragments.BaseFragment;
 import com.enrico.heroshell.Fragments.HomeFragment;
 import com.enrico.heroshell.Fragments.UserProfileFragment;
 import com.enrico.heroshell.Models.User;
@@ -112,7 +112,7 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
                     getSupportFragmentManager().executePendingTransactions();
                 }
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, homeFragment, homeFragment.fragmentName);
+                transaction.replace(R.id.fragment_container, homeFragment);
 //                transaction.addToBackStack(null);
                 transaction.commit();
                 shouldDisplayHomeUp();
@@ -121,9 +121,9 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
         }
     }
 
-    public static void pushFragment(BaseFragment fragment) {
+    public static void pushFragment(Fragment fragment) {
         FragmentTransaction transaction = self.getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment, fragment.fragmentName);
+        transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
         self.shouldDisplayHomeUp();

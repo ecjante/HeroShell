@@ -16,8 +16,8 @@ public class User {
     Integer playlistCount;
 
     public User() {
-        username = "@enrico";
-        displayName = "Enrico";
+        username = "enrico";
+        displayName = "Enrico Jante";
         coverImageUrl = "http://www.planwallpaper.com/static/images/Desktop-Wallpaper-HD2.jpg";
         profileImageUrl = "http://jmaruyama.com/blog/wp-content/uploads/2015/11/HolidayMickey.jpg";
         isOnline = true;

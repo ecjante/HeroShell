@@ -2,6 +2,8 @@ package com.enrico.heroshell.Fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,11 +17,10 @@ import com.enrico.heroshell.R;
 /**
  * Created by enrico on 10/19/17.
  */
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends Fragment {
 
     public HomeFragment() {
         // Required empty public constructor
-        fragmentName = "homeFragment";
     }
 
     @Override
@@ -34,13 +35,9 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
-    public void didAppear() {
+    public void onResume() {
+        super.onResume();
         ContainerActivity.updateToolbarTitle("Home");
         ContainerActivity.updateDrawerSelection(ContainerActivity.HOME_ID);
-    }
-
-    @Override
-    public void didDisappear() {
-
     }
 }
