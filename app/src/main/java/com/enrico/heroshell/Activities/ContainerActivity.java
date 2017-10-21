@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.enrico.heroshell.Fragments.ChatFragment;
 import com.enrico.heroshell.Fragments.HomeFragment;
 import com.enrico.heroshell.Fragments.UserProfileFragment;
 import com.enrico.heroshell.Models.User;
@@ -20,6 +21,9 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
+import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil;
 
 
 /**
@@ -31,12 +35,15 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
     private static final String ROUTE_PROFILE = "profile";
     public static final long HOME_ID = 1L;
     private static final String ROUTE_HOME = "home";
+    public static final long CHAT_ID = 2L;
+    private static final String ROUTE_CHAT = "chat";
 
     private Drawer drawer;
     private Toolbar toolbar;
 
     private HomeFragment homeFragment;
     private UserProfileFragment profileFragment;
+    private ChatFragment chatFragment;
 
 
     private static ContainerActivity self;
@@ -78,6 +85,18 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
                     }
                 });
 
+        SecondaryDrawerItem chatDrawerItem = new SecondaryDrawerItem()
+                .withIdentifier(CHAT_ID)
+                .withName("Chat")
+                .withIcon(R.drawable.ic_chat_bubble_white_48dp)
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        open(ROUTE_CHAT);
+                        return false;
+                    }
+                });
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -86,7 +105,7 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
                 .withToolbar(toolbar)
                 .withActionBarDrawerToggle(true)
                 .withTranslucentStatusBar(false)
-                .addDrawerItems(profileDrawerItem, homeDrawerItem)
+                .addDrawerItems(profileDrawerItem, homeDrawerItem, chatDrawerItem)
                 .build();
 
         getSupportFragmentManager().addOnBackStackChangedListener(this);
@@ -118,6 +137,13 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
                 shouldDisplayHomeUp();
                 break;
             }
+            case ROUTE_CHAT: {
+                if (chatFragment == null) {
+                    chatFragment = new ChatFragment();
+                }
+                pushFragment(chatFragment);
+                break;
+            }
         }
     }
 
@@ -143,6 +169,11 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
     }
     public static void updateToolbarTitle(String title) {
         self.getSupportActionBar().setTitle(title);
+    }
+    public static void hideKeyboard() {
+        if (KeyboardVisibilityEvent.isKeyboardVisible(self)) {
+            UIUtil.hideKeyboard(self);
+        }
     }
 
     @Override
