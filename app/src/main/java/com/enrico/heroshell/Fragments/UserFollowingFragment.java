@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserFollowingFragment extends Fragment {
+public class UserFollowingFragment extends BaseRecyclerViewFragment {
 
 
     public UserFollowingFragment() {
@@ -32,9 +32,8 @@ public class UserFollowingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_user_following, container, false);
+        View v = super.onCreateView(inflater, container, savedInstanceState);
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ArrayList<User> users = new ArrayList<>(20);
         for (int i = 0; i < 20; i++) {
             users.add(new User());

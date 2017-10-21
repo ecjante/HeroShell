@@ -37,6 +37,7 @@ public class UserProfileFragment extends Fragment {
     private View mainLayout;
     private User user;
 
+
     public UserProfileFragment() {
         // Required empty public constructor
     }

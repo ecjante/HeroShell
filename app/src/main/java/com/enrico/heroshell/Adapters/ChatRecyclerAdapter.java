@@ -52,8 +52,8 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
         return messages;
     }
 
-    public ChatRecyclerAdapter() {
-        messages = new ArrayList<>();
+    public ChatRecyclerAdapter(ArrayList<ChatMessage> messages) {
+        this.messages = messages;
     }
 
     @Override

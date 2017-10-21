@@ -11,9 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.enrico.heroshell.Fragments.ChatFragment;
 import com.enrico.heroshell.Fragments.HomeFragment;
+import com.enrico.heroshell.Fragments.RecommendationPagerFragment;
 import com.enrico.heroshell.Fragments.UserProfileFragment;
 import com.enrico.heroshell.Models.User;
 import com.enrico.heroshell.R;
@@ -32,11 +32,13 @@ import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil;
 
 public class ContainerActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
     public static final long PROFILE_ID = 0L;
-    private static final String ROUTE_PROFILE = "profile";
+    private static final String ROUTE_PROFILE = "Profile";
     public static final long HOME_ID = 1L;
-    private static final String ROUTE_HOME = "home";
+    private static final String ROUTE_HOME = "Home";
     public static final long CHAT_ID = 2L;
-    private static final String ROUTE_CHAT = "chat";
+    private static final String ROUTE_CHAT = "Chat";
+    public static final long RECOMMENDATION_ID = 3L;
+    private static final String ROUTE_RECOMMENDATION = "Recommendation";
 
     private Drawer drawer;
     private Toolbar toolbar;
@@ -44,6 +46,7 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
     private HomeFragment homeFragment;
     private UserProfileFragment profileFragment;
     private ChatFragment chatFragment;
+    private RecommendationPagerFragment recommendationPagerFragment;
 
 
     private static ContainerActivity self;
@@ -63,7 +66,7 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
 
         SecondaryDrawerItem profileDrawerItem = new SecondaryDrawerItem()
                 .withIdentifier(PROFILE_ID)
-                .withName("Profile")
+                .withName(ROUTE_PROFILE)
                 .withIcon(R.drawable.ic_person_white_48dp)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -75,7 +78,7 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
 
         SecondaryDrawerItem homeDrawerItem = new SecondaryDrawerItem()
                 .withIdentifier(HOME_ID)
-                .withName("Home")
+                .withName(ROUTE_HOME)
                 .withIcon(R.drawable.ic_home_white_48dp)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -87,12 +90,24 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
 
         SecondaryDrawerItem chatDrawerItem = new SecondaryDrawerItem()
                 .withIdentifier(CHAT_ID)
-                .withName("Chat")
+                .withName(ROUTE_CHAT)
                 .withIcon(R.drawable.ic_chat_bubble_white_48dp)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         open(ROUTE_CHAT);
+                        return false;
+                    }
+                });
+
+        SecondaryDrawerItem recommendationDrawerItem = new SecondaryDrawerItem()
+                .withIdentifier(RECOMMENDATION_ID)
+                .withName(ROUTE_RECOMMENDATION)
+                .withIcon(R.drawable.ic_hero_logo_white_48dp)
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        open(ROUTE_RECOMMENDATION);
                         return false;
                     }
                 });
@@ -105,7 +120,8 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
                 .withToolbar(toolbar)
                 .withActionBarDrawerToggle(true)
                 .withTranslucentStatusBar(false)
-                .addDrawerItems(profileDrawerItem, homeDrawerItem, chatDrawerItem)
+                .addDrawerItems(profileDrawerItem, homeDrawerItem, chatDrawerItem,
+                        recommendationDrawerItem)
                 .build();
 
         getSupportFragmentManager().addOnBackStackChangedListener(this);
@@ -142,6 +158,13 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
                     chatFragment = new ChatFragment();
                 }
                 pushFragment(chatFragment);
+                break;
+            }
+            case ROUTE_RECOMMENDATION: {
+                if (recommendationPagerFragment == null) {
+                    recommendationPagerFragment = new RecommendationPagerFragment();
+                }
+                pushFragment(recommendationPagerFragment);
                 break;
             }
         }

@@ -28,6 +28,8 @@ import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventList
 import net.yslibrary.android.keyboardvisibilityevent.Unregistrar;
 import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil;
 
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -35,11 +37,11 @@ public class ChatFragment extends Fragment implements KeyboardVisibilityEventLis
     private Unregistrar registrar;
     View mainLayout;
     ChatRecyclerAdapter adapter;
+    ArrayList<ChatRecyclerAdapter.ChatMessage> messages = new ArrayList<>();
 
     public ChatFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,7 +49,7 @@ public class ChatFragment extends Fragment implements KeyboardVisibilityEventLis
         // Inflate the layout for this fragment
         mainLayout = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        adapter = new ChatRecyclerAdapter();
+        adapter = new ChatRecyclerAdapter(messages);
         RecyclerView recyclerView = (RecyclerView) mainLayout.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
