@@ -29,4 +29,13 @@ public class Utilities {
         int alpha = Math.round(Color.alpha(color) * factor);
         return Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color));
     }
+
+    public static int dpToPx(Activity activity, int dp) {
+        DisplayMetrics displayMetrics = activity.getApplicationContext().getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+    public static int pxToDp(Activity activity, int px) {
+        DisplayMetrics displayMetrics = activity.getApplicationContext().getResources().getDisplayMetrics();
+        return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
 }

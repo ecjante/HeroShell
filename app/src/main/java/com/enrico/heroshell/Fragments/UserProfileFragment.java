@@ -122,7 +122,7 @@ public class UserProfileFragment extends Fragment {
         leftButton.setText(followingCount);
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View _) {
+            public void onClick(View view) {
                 goToFollowing();
             }
         });

@@ -55,11 +55,11 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
         setContentView(R.layout.activity_container);
 
         ((ImageView) findViewById(R.id.global_background_image))
-                .setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.globalBackgroundFilter));
+                .setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.primary_dark));
 
-        Glide.with(getApplicationContext())
-                .load("http://images.herostreams.com/android_global_default.jpg")
-                .into((ImageView) findViewById(R.id.global_background_image));
+//        Glide.with(getApplicationContext())
+//                .load("http://images.herostreams.com/android_global_default.jpg")
+//                .into((ImageView) findViewById(R.id.global_background_image));
 
         SecondaryDrawerItem profileDrawerItem = new SecondaryDrawerItem()
                 .withIdentifier(PROFILE_ID)
