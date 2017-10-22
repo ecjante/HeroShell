@@ -31,8 +31,7 @@ class HomeRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
         if (holder.itemView instanceof HomeCell) {
             HomeCell itemView = (HomeCell) holder.itemView;
             HomeData data = homeData.get(position);
-            itemView.setPrimaryString(data.getPrimaryString());
-            itemView.setSecondaryString(data.getSecondaryString());
+            itemView.setHomeData(data);
             itemView.setIndex(position + 1);
             itemView.setup();
         }

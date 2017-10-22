@@ -6,14 +6,14 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.enrico.heroshell.Activities.ContainerActivity
 import com.enrico.heroshell.R
+import com.enrico.heroshell.data.HomeData
 import org.jetbrains.anko.*
 
 /**
  * Created by enrico on 10/19/17.
  */
 class HomeCell: RelativeLayout(ContainerActivity.getContext()) {
-    var primaryString: String? = null
-    var secondaryString: String? = null
+    var homeData: HomeData? = null
     var index: Int? = null
 
     lateinit var indexText: TextView
@@ -55,7 +55,7 @@ class HomeCell: RelativeLayout(ContainerActivity.getContext()) {
 
     fun setup() {
         indexText.text = index?.toString()
-        primaryTextView.text = primaryString
-        secondaryTextView.text = secondaryString
+        primaryTextView.text = homeData?.primaryString
+        secondaryTextView.text = homeData?.secondaryString
     }
 }

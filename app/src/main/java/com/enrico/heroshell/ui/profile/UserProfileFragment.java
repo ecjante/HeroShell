@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -33,7 +34,19 @@ import com.enrico.heroshell.Util.Utilities;
  */
 public class UserProfileFragment extends Fragment {
 
-    private View mainLayout;
+    private RelativeLayout header;
+    private ImageView coverImage;
+    private ImageView profileImage;
+    private View onlineIndicator;
+    private TextView username;
+    private TextView displayName;
+    private ImageView moreButton;
+    private TextView followingYou;
+    private LinearLayout belowHeader;
+    private TextView leftButton;
+    private TextView centerButton;
+    private TextView rightButton;
+
     private User user;
 
 
@@ -45,11 +58,28 @@ public class UserProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mainLayout= inflater.inflate(R.layout.fragment_user_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
         if (user != null) {
             setup();
         }
-        return mainLayout;
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        header = view.findViewById(R.id.up_header_layout);
+        coverImage = view.findViewById(R.id.up_cover_picture);
+        profileImage = view.findViewById(R.id.up_profile_image);
+        onlineIndicator = view.findViewById(R.id.up_online_indicator);
+        username = view.findViewById(R.id.up_name_text);
+        displayName= view.findViewById(R.id.up_display_name_text);
+        moreButton = view.findViewById(R.id.up_more_button);
+        followingYou = view.findViewById(R.id.up_following_text);
+        belowHeader = view.findViewById(R.id.up_below_header_layout);
+        leftButton = view.findViewById(R.id.up_left_button);
+        centerButton = view.findViewById(R.id.up_center_button);
+        rightButton = view.findViewById(R.id.up_right_button);
     }
 
     @Override
@@ -63,21 +93,17 @@ public class UserProfileFragment extends Fragment {
         final int HEADER_HEIGHT = Utilities.getDisplayWidth(this.getActivity()) * 9 / 16;
         System.out.println(HEADER_HEIGHT);
 
-        RelativeLayout header = mainLayout.findViewById(R.id.up_header_layout);
         ((CollapsingToolbarLayout.LayoutParams) header.getLayoutParams()).height = HEADER_HEIGHT;
 
-        ImageView coverImage = (ImageView) mainLayout.findViewById(R.id.up_cover_picture);
         Glide.with(getActivity())
                 .load(user.getCoverImageUrl())
                 .into(coverImage);
 
-        ImageView profileImage = (ImageView) mainLayout.findViewById(R.id.up_profile_image);
         Glide.with(getActivity())
                 .load(user.getProfileImageUrl())
                 .apply(RequestOptions.circleCropTransform())
                 .into(profileImage);
 
-        View onlineIndicator = mainLayout.findViewById(R.id.up_online_indicator);
         Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.circle_border, null);
         if (drawable != null) {
             int color = (user.getOnline()) ? ContextCompat.getColor(getContext(), R.color.colorAccent) : Color.GRAY;
@@ -85,15 +111,12 @@ public class UserProfileFragment extends Fragment {
             onlineIndicator.setBackground(drawable);
         }
 
-        TextView username = (TextView) mainLayout.findViewById(R.id.up_name_text);
         username.setText(user.getUsername());
         username.setShadowLayer(2f, 2f, 2f, Color.BLACK);
 
-        TextView displayName = (TextView) mainLayout.findViewById(R.id.up_display_name_text);
         displayName.setText(user.getDisplayName());
         displayName.setShadowLayer(2f, 2f, 2f, Color.BLACK);
 
-        ImageView moreButton = (ImageView) mainLayout.findViewById(R.id.up_more_button);
         GradientDrawable gd = new GradientDrawable();
         gd.setColor(Utilities.adjustColorAlpha(Color.BLACK, 0.5f));
         gd.setCornerRadius(10f);
@@ -101,7 +124,6 @@ public class UserProfileFragment extends Fragment {
         moreButton.setColorFilter(Color.WHITE);
         moreButton.setBackground(gd);
 
-        TextView followingYou = (TextView) mainLayout.findViewById(R.id.up_following_text);
         GradientDrawable gd2 = new GradientDrawable();
         gd2.setColor(Utilities.adjustColorAlpha(Color.BLACK, 0.5f));
         gd2.setCornerRadius(10f);
@@ -113,10 +135,8 @@ public class UserProfileFragment extends Fragment {
             followingYou.setVisibility(View.GONE);
         }
 
-        LinearLayout belowHeader = (LinearLayout) mainLayout.findViewById(R.id.up_below_header_layout);
         ((CollapsingToolbarLayout.LayoutParams) belowHeader.getLayoutParams()).topMargin = HEADER_HEIGHT;
 
-        TextView leftButton = (TextView) mainLayout.findViewById(R.id.up_left_button);
         SpannableString followingCount = new SpannableString("FOLLOWING\n" + user.getFollowingCount());
         followingCount.setSpan(new RelativeSizeSpan(1.75f), 10, followingCount.length(), 0);
         leftButton.setText(followingCount);
@@ -127,12 +147,10 @@ public class UserProfileFragment extends Fragment {
             }
         });
 
-        TextView centerButton = (TextView) mainLayout.findViewById(R.id.up_center_button);
         SpannableString followersCount = new SpannableString("FOLLOWERS\n" + user.getFollowersCount());
         followersCount.setSpan(new RelativeSizeSpan(1.75f), 10, followersCount.length(), 0);
         centerButton.setText(followersCount);
 
-        TextView rightButton = (TextView) mainLayout.findViewById(R.id.up_right_button);
         SpannableString playlistCount = new SpannableString("PLAYLISTS\n" + user.getPlaylistCount());
         playlistCount.setSpan(new RelativeSizeSpan(1.75f), 10, playlistCount.length(), 0);
         rightButton.setText(playlistCount);
