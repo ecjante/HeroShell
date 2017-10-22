@@ -1,4 +1,4 @@
-package com.enrico.heroshell.Models;
+package com.enrico.heroshell.data;
 
 /**
  * Created by enrico on 10/19/17.

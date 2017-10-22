@@ -1,4 +1,4 @@
-package com.enrico.heroshell.Adapters;
+package com.enrico.heroshell.ui.base;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

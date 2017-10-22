@@ -11,11 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.enrico.heroshell.Fragments.ChatFragment;
-import com.enrico.heroshell.Fragments.HomeFragment;
-import com.enrico.heroshell.Fragments.RecommendationPagerFragment;
-import com.enrico.heroshell.Fragments.UserProfileFragment;
-import com.enrico.heroshell.Models.User;
+import com.enrico.heroshell.ui.chat.ChatFragment;
+import com.enrico.heroshell.ui.home.HomeFragment;
+import com.enrico.heroshell.ui.recommendation.RecommendationPagerFragment;
+import com.enrico.heroshell.ui.profile.UserProfileFragment;
+import com.enrico.heroshell.data.User;
 import com.enrico.heroshell.R;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;

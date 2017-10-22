@@ -1,4 +1,4 @@
-package com.enrico.heroshell.RecyclerViewCells
+package com.enrico.heroshell.ui.profile
 
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -12,7 +12,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.enrico.heroshell.Activities.ContainerActivity
-import com.enrico.heroshell.Models.User
+import com.enrico.heroshell.data.User
 import com.enrico.heroshell.R
 import org.jetbrains.anko.*
 

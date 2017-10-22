@@ -1,4 +1,4 @@
-package com.enrico.heroshell.RecyclerViewCells
+package com.enrico.heroshell.ui.home
 
 import android.support.v4.content.ContextCompat
 import android.view.Gravity

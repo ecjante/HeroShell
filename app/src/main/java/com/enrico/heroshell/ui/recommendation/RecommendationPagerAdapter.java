@@ -1,17 +1,8 @@
-package com.enrico.heroshell.Adapters;
+package com.enrico.heroshell.ui.recommendation;
 
 import android.support.v4.view.PagerAdapter;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-
-import com.enrico.heroshell.R;
-import com.enrico.heroshell.Views.RecommendationRecyclerView;
 
 /**
  * Created by enrico on 10/21/17.

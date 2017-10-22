@@ -1,4 +1,7 @@
-package com.enrico.heroshell.Models;
+package com.enrico.heroshell.ui.recommendation;
+
+import com.enrico.heroshell.data.Stream;
+import com.enrico.heroshell.data.User;
 
 import java.util.ArrayList;
 

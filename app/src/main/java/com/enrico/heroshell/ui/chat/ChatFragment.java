@@ -1,9 +1,10 @@
-package com.enrico.heroshell.Fragments;
+package com.enrico.heroshell.ui.chat;
 
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,20 +14,18 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.enrico.heroshell.Activities.ContainerActivity;
-import com.enrico.heroshell.Adapters.ChatRecyclerAdapter;
 import com.enrico.heroshell.R;
 import com.enrico.heroshell.Util.Utilities;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
 import net.yslibrary.android.keyboardvisibilityevent.Unregistrar;
-import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil;
 
 import java.util.ArrayList;
 
@@ -35,26 +34,43 @@ import java.util.ArrayList;
  */
 public class ChatFragment extends Fragment implements KeyboardVisibilityEventListener {
     private Unregistrar registrar;
-    View mainLayout;
+    private RecyclerView recyclerView;
+    private Button sendButton;
+    private EditText messageBox;
+    private ImageView moreButton;
+    private RelativeLayout optionsView;
     ChatRecyclerAdapter adapter;
-    ArrayList<ChatRecyclerAdapter.ChatMessage> messages = new ArrayList<>();
+    ArrayList<ChatRecyclerAdapter.ChatMessage> messages;
 
     public ChatFragment() {
         // Required empty public constructor
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        messages = new ArrayList<>();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mainLayout = inflater.inflate(R.layout.fragment_chat, container, false);
+        View mainLayout = inflater.inflate(R.layout.fragment_chat, container, false);
+        return mainLayout;
+    }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         adapter = new ChatRecyclerAdapter(messages);
-        RecyclerView recyclerView = (RecyclerView) mainLayout.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
-        final TextView sendButton = (TextView) mainLayout.findViewById(R.id.send_button);
+        optionsView = (RelativeLayout) view.findViewById(R.id.options_layout);
+
+        sendButton = (Button) view.findViewById(R.id.send_button);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,19 +79,18 @@ public class ChatFragment extends Fragment implements KeyboardVisibilityEventLis
         });
         sendButton.setClickable(false);
 
-        EditText editText = (EditText) mainLayout.findViewById(R.id.message_box);
-        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        messageBox = (EditText) view.findViewById(R.id.message_box);
+        messageBox.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus && isExpanded) {
-                    RelativeLayout optionsView = (RelativeLayout) mainLayout.findViewById(R.id.options_layout);
                     ((RelativeLayout.LayoutParams) optionsView.getLayoutParams()).height = 0;
                     optionsView.requestLayout();
                     isExpanded = !isExpanded;
                 }
             }
         });
-        editText.addTextChangedListener(new TextWatcher() {
+        messageBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -94,7 +109,7 @@ public class ChatFragment extends Fragment implements KeyboardVisibilityEventLis
             }
         });
 
-        ImageView moreButton = (ImageView) mainLayout.findViewById(R.id.more_button);
+        moreButton = (ImageView) view.findViewById(R.id.more_button);
         moreButton.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAccent));
         moreButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,25 +117,21 @@ public class ChatFragment extends Fragment implements KeyboardVisibilityEventLis
                 onMoreButtonClick();
             }
         });
-        return mainLayout;
     }
 
     private void onSendMessage() {
-        EditText messageBox = (EditText) mainLayout.findViewById(R.id.message_box);
         String message = messageBox.getText().toString();
         if (!message.isEmpty()) {
             adapter.addMessage(new ChatRecyclerAdapter.ChatMessage(message, true));
             messageBox.setText("");
             adapter.addMessage(new ChatRecyclerAdapter.ChatMessage(message, false));
-            RecyclerView recyclerView = (RecyclerView) mainLayout.findViewById(R.id.recycler_view);
-            recyclerView.scrollToPosition(adapter.getMessages().size() - 1);
+            scrollToBottom();
         }
     }
 
     private boolean isExpanded = false;
     private void onMoreButtonClick() {
         ContainerActivity.hideKeyboard();
-        final RelativeLayout optionsView = (RelativeLayout) mainLayout.findViewById(R.id.options_layout);
         ValueAnimator anim;
         if (isExpanded) {
             anim = ValueAnimator.ofInt(Utilities.dpToPx(getActivity(), 192), 0);
@@ -142,8 +153,7 @@ public class ChatFragment extends Fragment implements KeyboardVisibilityEventLis
             @Override
             public void onAnimationEnd(Animator animation) {
                 isExpanded = !isExpanded;
-                RecyclerView recyclerView = (RecyclerView) mainLayout.findViewById(R.id.recycler_view);
-                recyclerView.scrollToPosition(adapter.getMessages().size() - 1);
+                scrollToBottom();
             }
 
             @Override
@@ -174,10 +184,14 @@ public class ChatFragment extends Fragment implements KeyboardVisibilityEventLis
     @Override
     public void onVisibilityChanged(boolean isOpen) {
         if (!isOpen) {
-            EditText editText = (EditText) mainLayout.findViewById(R.id.message_box);
-            editText.clearFocus();
+            messageBox.clearFocus();
         }
-        RecyclerView recyclerView = (RecyclerView) mainLayout.findViewById(R.id.recycler_view);
-        recyclerView.scrollToPosition(adapter.getMessages().size() - 1);
+        scrollToBottom();
+    }
+
+    private void scrollToBottom() {
+        if (adapter.getMessages().size() > 0) {
+            recyclerView.smoothScrollToPosition(adapter.getMessages().size() - 1);
+        }
     }
 }

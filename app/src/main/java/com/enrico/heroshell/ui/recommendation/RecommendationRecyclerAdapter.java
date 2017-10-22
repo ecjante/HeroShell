@@ -1,4 +1,4 @@
-package com.enrico.heroshell.Adapters;
+package com.enrico.heroshell.ui.recommendation;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,9 +13,9 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.enrico.heroshell.Activities.ContainerActivity;
-import com.enrico.heroshell.Fragments.UserProfileFragment;
-import com.enrico.heroshell.Models.Recommendation;
-import com.enrico.heroshell.Models.User;
+import com.enrico.heroshell.ui.base.ViewHolder;
+import com.enrico.heroshell.ui.profile.UserProfileFragment;
+import com.enrico.heroshell.data.User;
 import com.enrico.heroshell.R;
 
 import java.util.ArrayList;

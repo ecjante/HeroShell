@@ -1,19 +1,16 @@
-package com.enrico.heroshell.Fragments;
+package com.enrico.heroshell.ui.userFollowing;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.enrico.heroshell.Activities.ContainerActivity;
-import com.enrico.heroshell.Adapters.HomeRecyclerAdapter;
-import com.enrico.heroshell.Adapters.UserFollowingRecyclerAdapter;
-import com.enrico.heroshell.Models.User;
+import com.enrico.heroshell.ui.base.BaseRecyclerViewFragment;
+import com.enrico.heroshell.data.User;
 import com.enrico.heroshell.R;
 
 import java.util.ArrayList;

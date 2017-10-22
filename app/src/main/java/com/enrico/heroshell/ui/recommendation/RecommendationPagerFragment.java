@@ -1,4 +1,4 @@
-package com.enrico.heroshell.Fragments;
+package com.enrico.heroshell.ui.recommendation;
 
 
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.enrico.heroshell.Activities.ContainerActivity;
-import com.enrico.heroshell.Adapters.RecommendationPagerAdapter;
 import com.enrico.heroshell.R;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 

@@ -1,4 +1,4 @@
-package com.enrico.heroshell.Views;
+package com.enrico.heroshell.ui.base;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -6,7 +6,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.LinearLayout;
 
 import com.enrico.heroshell.R;

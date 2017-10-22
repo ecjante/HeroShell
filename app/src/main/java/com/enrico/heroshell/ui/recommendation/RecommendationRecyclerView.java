@@ -1,10 +1,10 @@
-package com.enrico.heroshell.Views;
+package com.enrico.heroshell.ui.recommendation;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
-import com.enrico.heroshell.Adapters.RecommendationRecyclerAdapter;
+import com.enrico.heroshell.ui.base.BaseRecyclerView;
 
 /**
  * Created by enrico on 10/21/17.

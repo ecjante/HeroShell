@@ -1,4 +1,4 @@
-package com.enrico.heroshell.Fragments;
+package com.enrico.heroshell.ui.profile;
 
 
 import android.graphics.Color;
@@ -6,10 +6,8 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.text.SpannableString;
@@ -25,7 +23,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.enrico.heroshell.Activities.ContainerActivity;
-import com.enrico.heroshell.Models.User;
+import com.enrico.heroshell.ui.userFollowing.UserFollowingFragment;
+import com.enrico.heroshell.data.User;
 import com.enrico.heroshell.R;
 import com.enrico.heroshell.Util.Utilities;
 

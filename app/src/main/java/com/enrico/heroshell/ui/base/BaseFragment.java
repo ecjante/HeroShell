@@ -1,4 +1,4 @@
-package com.enrico.heroshell.Fragments;
+package com.enrico.heroshell.ui.base;
 
 import android.support.v4.app.Fragment;
 

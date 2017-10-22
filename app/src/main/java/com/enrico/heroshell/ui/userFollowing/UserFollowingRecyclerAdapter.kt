@@ -1,9 +1,10 @@
-package com.enrico.heroshell.Adapters
+package com.enrico.heroshell.ui.userFollowing
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import com.enrico.heroshell.Models.User
-import com.enrico.heroshell.RecyclerViewCells.UserCell
+import com.enrico.heroshell.ui.base.ViewHolder
+import com.enrico.heroshell.ui.profile.UserCell
+import com.enrico.heroshell.data.User
 
 /**
  * Created by enrico on 10/19/17.

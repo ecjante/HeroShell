@@ -2,51 +2,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.enrico.heroshell.Fragments.ChatFragment">
+    tools:context=".ui.chat.ChatFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/message_layout" />
+        android:paddingTop="8dp"
+        android:clipToPadding="false"
+        android:layout_above="@+id/divider"
+        android:layout_alignParentTop="true" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#78555555"
+        android:layout_above="@+id/message_layout"/>
 
     <RelativeLayout
         android:id="@+id/message_layout"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:layout_above="@+id/options_layout">
 
         <ImageView
             android:id="@+id/more_button"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_alignBottom="@+id/message_box"
             android:padding="4dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_add_box_white_48dp"/>
 
-        <TextView
+        <Button
             android:id="@+id/send_button"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="32dp"
+            android:layout_alignBottom="@+id/message_box"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
             android:background="@color/colorPrimaryLight"
             android:gravity="center"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
             android:text="Send"
             android:textColor="@color/mainTextColor"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/message_box"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:paddingRight="16dp"
             android:paddingLeft="16dp"
             android:hint="Message"
-            android:inputType="textPersonName"
+            android:inputType="textAutoCorrect|textMultiLine"
             android:layout_toLeftOf="@id/send_button"
             android:layout_toRightOf="@+id/more_button"/>
 
