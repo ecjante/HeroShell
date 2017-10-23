@@ -1,11 +1,12 @@
 *.iml
 .gradle
 /local.properties
-/.idea/*
+/.idea/
 .DS_Store
 /build
 /captures
 .externalNativeBuild
-app/libs/
+/app/libs/
+/app/src/androidTest/
 /gradle.properties
 moble/mobile-release.apk
