@@ -1,5 +1,6 @@
 package com.enrico.heroshell.ui.recommendation;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,6 @@ import java.util.ArrayList;
  */
 
 public class RecommendationRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
-
     ArrayList<Recommendation> recommendations;
 
     public RecommendationRecyclerAdapter() {
@@ -89,7 +89,9 @@ public class RecommendationRecyclerAdapter extends RecyclerView.Adapter<ViewHold
                         @Override
                         public void onClick(View v) {
                             UserProfileFragment userProfileFragment = new UserProfileFragment();
-                            userProfileFragment.setUser(user);
+                            Bundle b = new Bundle();
+                            b.putString(UserProfileFragment.USERNAME_ARGUMENT, "reeks");
+                            userProfileFragment.setArguments(b);
                             ContainerActivity.pushFragment(userProfileFragment);
                         }
                     });

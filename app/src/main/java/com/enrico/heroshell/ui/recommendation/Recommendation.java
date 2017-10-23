@@ -16,10 +16,10 @@ public class Recommendation {
     public Recommendation() {
         stream = new Stream();
         recommendedBy = new ArrayList<User>();
-        recommendedBy.add(new User());
-        recommendedBy.add(new User());
-        recommendedBy.add(new User());
-        recommendedBy.add(new User());
+        recommendedBy.add(new User("abc"));
+        recommendedBy.add(new User("def"));
+        recommendedBy.add(new User("ghi"));
+        recommendedBy.add(new User("jkl"));
     }
 
     public Stream getStream() {

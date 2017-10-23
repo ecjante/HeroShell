@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.enrico.heroshell.HeroApplication;
 import com.enrico.heroshell.ui.chat.ChatFragment;
 import com.enrico.heroshell.ui.home.HomeFragment;
 import com.enrico.heroshell.ui.recommendation.RecommendationPagerFragment;
@@ -48,12 +49,12 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
     private ChatFragment chatFragment;
     private RecommendationPagerFragment recommendationPagerFragment;
 
-
     private static ContainerActivity self;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new HeroApplication();
         self = this;
         setContentView(R.layout.activity_container);
 
@@ -135,7 +136,9 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
             case ROUTE_PROFILE: {
                 if (profileFragment == null) {
                     profileFragment = new UserProfileFragment();
-                    profileFragment.setUser(new User());
+                    Bundle b = new Bundle();
+                    b.putString(UserProfileFragment.USERNAME_ARGUMENT, "ecjpiano");
+                    profileFragment.setArguments(b);
                 }
                 pushFragment(profileFragment);
                 break;
@@ -172,6 +175,10 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
 
     public static void pushFragment(Fragment fragment) {
         FragmentTransaction transaction = self.getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(
+                R.anim.enter_from_right, R.anim.exit_to_left,
+                R.anim.enter_from_left, R.anim.exit_to_right
+        );
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -186,6 +193,9 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
 
     public static Context getContext() {
         return self.getApplicationContext();
+    }
+    public static long getDrawerSelection() {
+        return self.drawer.getCurrentSelection();
     }
     public static void updateDrawerSelection(long drawerId) {
         self.drawer.setSelection(drawerId, false);

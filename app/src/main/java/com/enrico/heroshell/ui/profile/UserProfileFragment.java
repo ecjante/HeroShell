@@ -32,7 +32,8 @@ import com.enrico.heroshell.Util.Utilities;
 /**
  * Created by enrico on 10/19/17.
  */
-public class UserProfileFragment extends Fragment {
+public class UserProfileFragment extends Fragment implements UserProfileContract.View {
+    public static final String USERNAME_ARGUMENT = "username";
 
     private RelativeLayout header;
     private ImageView coverImage;
@@ -48,21 +49,27 @@ public class UserProfileFragment extends Fragment {
     private TextView rightButton;
 
     private User user;
-
+    private UserProfileContract.Presenter presenter;
 
     public UserProfileFragment() {
         // Required empty public constructor
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        presenter = new UserProfilePresenter(this);
+        String username = getArguments().getString(USERNAME_ARGUMENT);
+        user = new User(username);
+        currentDrawerItem = ContainerActivity.getDrawerSelection();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
-        if (user != null) {
-            setup();
-        }
-        return view;
+        View v = inflater.inflate(R.layout.fragment_user_profile, container, false);
+        return v;
     }
 
     @Override
@@ -80,16 +87,29 @@ public class UserProfileFragment extends Fragment {
         leftButton = view.findViewById(R.id.up_left_button);
         centerButton = view.findViewById(R.id.up_center_button);
         rightButton = view.findViewById(R.id.up_right_button);
+
+        getUserProfile();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         ContainerActivity.updateToolbarTitle("Profile");
-        ContainerActivity.updateDrawerSelection(ContainerActivity.PROFILE_ID);
+        if (user.isLoggedInUser()) {
+            ContainerActivity.updateDrawerSelection(ContainerActivity.PROFILE_ID);
+        } else {
+            ContainerActivity.updateDrawerSelection(currentDrawerItem);
+        }
     }
 
-    public void setup() {
+    private long currentDrawerItem;
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void showProfile() {
         final int HEADER_HEIGHT = Utilities.getDisplayWidth(this.getActivity()) * 9 / 16;
         System.out.println(HEADER_HEIGHT);
 
@@ -111,7 +131,8 @@ public class UserProfileFragment extends Fragment {
             onlineIndicator.setBackground(drawable);
         }
 
-        username.setText(user.getUsername());
+        String usernameString = "@" + user.getUsername();
+        username.setText(usernameString);
         username.setShadowLayer(2f, 2f, 2f, Color.BLACK);
 
         displayName.setText(user.getDisplayName());
@@ -164,12 +185,11 @@ public class UserProfileFragment extends Fragment {
         ContainerActivity.pushFragment(userFollowingFragment);
     }
 
-    public User getUser() {
-        return user;
+    private void getUserProfile() {
+        if (user.getNeedsProfileGrab()) {
+            presenter.getUser(user);
+        } else {
+            showProfile();
+        }
     }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
 }

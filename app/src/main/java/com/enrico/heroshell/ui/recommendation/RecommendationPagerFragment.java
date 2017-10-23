@@ -75,5 +75,6 @@ public class RecommendationPagerFragment extends Fragment {
     public void onResume() {
         super.onResume();
         changeToolbarTitle();
+        ContainerActivity.updateDrawerSelection(ContainerActivity.RECOMMENDATION_ID);
     }
 }

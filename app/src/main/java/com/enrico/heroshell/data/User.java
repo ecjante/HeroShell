@@ -1,5 +1,7 @@
 package com.enrico.heroshell.data;
 
+import com.enrico.heroshell.HeroApplication;
+
 /**
  * Created by enrico on 10/19/17.
  */
@@ -15,6 +17,8 @@ public class User {
     Integer followersCount;
     Integer playlistCount;
 
+    Boolean needsProfileGrab = true;
+
     public User() {
         username = "enrico";
         displayName = "Enrico Jante";
@@ -25,6 +29,10 @@ public class User {
         followersCount = 109;
         followingCount = 87;
         playlistCount = 124;
+    }
+    public User(String username) {
+        this();
+        this.username = username;
     }
 
     public String getUsername() {
@@ -53,5 +61,15 @@ public class User {
     }
     public Integer getPlaylistCount() {
         return playlistCount;
+    }
+    public Boolean getNeedsProfileGrab() {
+        return needsProfileGrab;
+    }
+    public void setNeedsProfileGrab(Boolean needsProfileGrab) {
+        this.needsProfileGrab = needsProfileGrab;
+    }
+
+    public boolean isLoggedInUser() {
+        return HeroApplication.isLoggedInUser(username);
     }
 }
