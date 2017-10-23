@@ -1,12 +1,14 @@
 package com.enrico.heroshell;
 
+import android.app.Application;
+
 import com.enrico.heroshell.data.User;
 
 /**
  * Created by enrico on 10/22/17.
  */
 
-public class HeroApplication {
+public class HeroApplication extends Application {
 
     private User loggedInUser;
     private static HeroApplication self;
