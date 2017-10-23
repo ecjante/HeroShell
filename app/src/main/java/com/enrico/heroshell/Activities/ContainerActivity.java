@@ -176,8 +176,8 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
     public static void pushFragment(Fragment fragment) {
         FragmentTransaction transaction = self.getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(
-                R.anim.enter_from_right, R.anim.exit_to_left,
-                R.anim.enter_from_left, R.anim.exit_to_right
+                R.anim.enter_from_right, android.R.anim.fade_out,
+                android.R.anim.fade_in, R.anim.exit_to_right
         );
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);

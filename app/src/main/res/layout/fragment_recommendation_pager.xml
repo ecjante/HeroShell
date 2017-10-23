@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.recommendation.RecommendationPagerFragment">
+    tools:context=".ui.recommendation.RecommendationPagerFragment"
+    android:background="@color/colorPrimaryDark">
 
     <com.ogaclejapan.smarttablayout.SmartTabLayout
         android:id="@+id/tabs"
