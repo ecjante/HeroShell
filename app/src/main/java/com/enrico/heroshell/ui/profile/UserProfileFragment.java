@@ -175,6 +175,8 @@ public class UserProfileFragment extends Fragment implements UserProfileContract
         SpannableString playlistCount = new SpannableString("PLAYLISTS\n" + user.getPlaylistCount());
         playlistCount.setSpan(new RelativeSizeSpan(1.75f), 10, playlistCount.length(), 0);
         rightButton.setText(playlistCount);
+
+        ContainerActivity.hideProgressBar();
     }
 
     /**
@@ -187,6 +189,7 @@ public class UserProfileFragment extends Fragment implements UserProfileContract
 
     private void getUserProfile() {
         if (user.getNeedsProfileGrab()) {
+            ContainerActivity.showProgressBar();
             presenter.getUser(user);
         } else {
             showProfile();

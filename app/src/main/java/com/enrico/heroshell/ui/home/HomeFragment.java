@@ -62,9 +62,11 @@ public class HomeFragment extends BaseRecyclerViewFragment implements HomeContra
     @Override
     public void showHome(List<HomeData> homeData) {
         adapter.addData(homeData);
+        ContainerActivity.hideProgressBar();
     }
 
     private void getHomeData() {
+        ContainerActivity.showProgressBar();
         presenter.getHome(getContext().getApplicationContext());
     }
 }

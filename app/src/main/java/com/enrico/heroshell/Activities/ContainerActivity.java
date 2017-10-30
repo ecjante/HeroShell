@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.enrico.heroshell.HeroApplication;
 import com.enrico.heroshell.ui.chat.ChatFragment;
@@ -43,6 +44,7 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
 
     private Drawer drawer;
     private Toolbar toolbar;
+    private ProgressBar progressBar;
 
     private HomeFragment homeFragment;
     private UserProfileFragment profileFragment;
@@ -112,6 +114,8 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
                         return false;
                     }
                 });
+
+        progressBar = findViewById(R.id.progress_bar);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -207,6 +211,13 @@ public class ContainerActivity extends AppCompatActivity implements FragmentMana
         if (KeyboardVisibilityEvent.isKeyboardVisible(self)) {
             UIUtil.hideKeyboard(self);
         }
+    }
+
+    public static void showProgressBar() {
+        self.progressBar.setVisibility(View.VISIBLE);
+    }
+    public static void hideProgressBar() {
+        self.progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
